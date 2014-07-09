@@ -53,21 +53,22 @@ def home(request):
     'home.html',
     { 'user': request.user ,'task_data':task_data,'task_data_public':task_data_public}
     )
-
+@login_required
 def add_task(request):
     if request.method == 'POST':
         form = TaskForm(request.POST)
         if form.is_valid():
-            task = Task.objects.create(
+            Task = task.objects.create(
             title=form.cleaned_data['title'],
             created_date=form.cleaned_data['created_date'],
-            priority=form.cleaned_data['email'],
+            priority=form.cleaned_data['priority'],
             visibilty=form.cleaned_data['visibilty'],
-            status=form.cleaned_data['status']
+            status=form.cleaned_data['status'],
+            user_name_id=request.user.id
             )
             return HttpResponseRedirect('/home/taskadded/')
     else:
-        form = RegistrationForm()
+        form = TaskForm()
     variables = RequestContext(request, {
     'form': form
     })

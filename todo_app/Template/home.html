@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Welcome to Django{% endblock %}
+{% block head %}Welcome to Django{% endblock %}
+{% block content %}
+      <a href="/home/addtask">Add Task</a>
+     <a href="/logout/">Logout</a>
+    <p>Welcome {{ user.username }} !!!</p>
+     
+     <table style="width:300px">
+<tr>
+  <th>Task Name</th>
+  <th>Created At </th>		
+  <th>Status</th>
+  <th>Visibilty</th>
+  <th>Priority</th>
+
+</tr>
+     {% for task in task_data %}
+     <tr>
+  <td>{{ task.title }}</td>
+  <td>{{ task.created_date }}</td>		
+  <td>{{ task.priority }}</td>
+  <td>{{ task.status }}</td>		
+  <td>{{ task.visibilty}}</td>
+</tr>
+
+{% endfor %}
+
+
+<table style="width:300px">
+	<h3>SEE ALL PUBLIC TASK POSTED BY OTHER USER</h3>
+<tr>
+  <th>Task Name</th>
+  <th>Posted BY</th>
+
+</tr>
+{% for task in task_data_public %}
+     <tr>
+  <td>{{ task.title }}</td>
+  <td>{{ task.user_name.username }}</td>		
+  
+</tr>
+
+    
+    
+{% endfor %}
+
+
+{% endblock %}
+
+
+
+
+
